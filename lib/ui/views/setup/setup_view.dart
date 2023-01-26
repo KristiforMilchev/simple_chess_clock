@@ -1,6 +1,7 @@
 import 'package:chess_cloack/main.dart';
 import 'package:chess_cloack/ui/views/setup/setup_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -35,15 +36,18 @@ class SetupView extends StatelessWidget {
               ),
               Expanded(
                 flex: 4,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                          (states) => ThemeColors.cardBackground)),
-                  onPressed: (() async => await model.intervalPicker()),
-                  child: Icon(
-                    Icons.timer,
-                    color: ThemeColors.mainText,
-                    size: 100,
+                child: Container(
+                  color: ThemeColors.cardBackground,
+                  child: NumberPicker(
+                    value: model.minutes,
+                    axis: Axis.horizontal,
+                    selectedTextStyle:
+                        TextStyle(color: ThemeColors.mainText, fontSize: 50),
+                    textStyle:
+                        TextStyle(color: ThemeColors.innerText, fontSize: 25),
+                    minValue: 0,
+                    maxValue: 100,
+                    onChanged: (value) => model.minutesChanged(value),
                   ),
                 ),
               ),
@@ -58,16 +62,18 @@ class SetupView extends StatelessWidget {
               ),
               Expanded(
                 flex: 4,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                          (states) => ThemeColors.cardBackground)),
-                  onPressed: (() async =>
-                      await model.selectIncrementInterval()),
-                  child: Icon(
-                    Icons.add_circle_outline_rounded,
-                    color: ThemeColors.mainText,
-                    size: 100,
+                child: Container(
+                  color: ThemeColors.cardBackground,
+                  child: NumberPicker(
+                    value: model.incremental,
+                    axis: Axis.horizontal,
+                    selectedTextStyle:
+                        TextStyle(color: ThemeColors.mainText, fontSize: 50),
+                    textStyle:
+                        TextStyle(color: ThemeColors.innerText, fontSize: 25),
+                    minValue: 0,
+                    maxValue: 60,
+                    onChanged: (value) => model.incrementalChanged(value),
                   ),
                 ),
               ),

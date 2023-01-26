@@ -1,4 +1,3 @@
-import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:stacked/stacked.dart';
@@ -16,30 +15,15 @@ class SetupViewModel extends BaseViewModel {
   late int? _minutes = 0;
   late int? _increment = 0;
 
+  get minutes => _minutes;
+  get incremental => _increment;
+
   void initialise(BuildContext context) async {
     router = getIt.get<IPageRouterService>();
     _advertisment = getIt.get<IAdvertisment>();
     _context = context;
 
     notifyListeners();
-  }
-
-  intervalPicker() async {
-    await showDurationPicker(
-      context: _context,
-      initialDuration: const Duration(),
-      durationPickerMode: DurationPickerMode.Minute,
-      showHead: false,
-    ).then((value) => {_minutes = value!.inMinutes});
-  }
-
-  selectIncrementInterval() async {
-    await showDurationPicker(
-      context: _context,
-      initialDuration: const Duration(),
-      durationPickerMode: DurationPickerMode.Second,
-      showHead: false,
-    ).then((value) => {_increment = value!.inSeconds});
   }
 
   beginGame() async {
@@ -52,5 +36,15 @@ class SetupViewModel extends BaseViewModel {
       minutes: minutes,
       increment: increment,
     ));
+  }
+
+  minutesChanged(int value) {
+    _minutes = value;
+    notifyListeners();
+  }
+
+  incrementalChanged(int value) {
+    _increment = value;
+    notifyListeners();
   }
 }
