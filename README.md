@@ -1,4 +1,4 @@
-# chess_cloack
+# chess_clock
 
 A new Flutter project.
 
